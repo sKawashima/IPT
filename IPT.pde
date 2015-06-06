@@ -1,7 +1,7 @@
 PImage img;
 
 void setup(){
-	//size(512, 512);
+	size(512, 512);
 	img = loadImage("sample1.jpg");
 	size(img.width, img.height);
 	noLoop();
