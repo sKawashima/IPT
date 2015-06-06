@@ -13,6 +13,7 @@ import java.util.*;
 
 DropTarget dropTarget;
 PImage img;
+int sw = 0;
 
 void setup(){
 	// てきとうにサイズ設定
@@ -54,26 +55,58 @@ void setup(){
 
 void draw() {
 	if(img != null){
-		image(img,0,0);
-		ChangeWindowSize(img.width, img.height);
-	//println(img.width,img.height);
-}else{
-	//font = loadFont("console");
-	textSize(18);
-	text("ここにD and D",50,50);
-}
+		if (sw == 1) {
+			histogram();
+		}else{
+			image(img,0,0);
+			ChangeWindowSize(img.width, img.height);
+		}
+		//println(img.width,img.height);
+	}else{
+		//font = loadFont("console");
+		textSize(18);
+		text("ここにD and D",50,50);
+	}
 }
 
 /**
  * サイズに合わせて画面サイズを変更する
- * @param {[type]} int w 画像の横幅
- * @param {[type]} int h 画像の縦幅
+ * @param {value} int w 画像の横幅
+ * @param {value} int h 画像の縦幅
  */
 void ChangeWindowSize(int w,int h){
 	frame.setSize(w + frame.getInsets().left + frame.getInsets().right,h + frame.getInsets().top + frame.getInsets().bottom);
 	size(w,h);
 }
 
-void KeyPressed(){
+void keyPressed(){
+	println(key);
+	if (key == 'h'){
+		sw = 1;
+		redraw();
+	}else if (key == 's'){
+		save("data.png");
+	}
+	if (key == CODED) {			// コード化されているキーが押された
+		if (keyCode == UP) {		// キーコードを判定
+			 background(255);
+		} else if (keyCode == DOWN) {
+			 background(0);
+		}
+	}
+}
 
+void histogram(){
+	int[] h = new int[256];
+	for(int y = 0;y < img.height;y++){
+		for(int x = 0;x < img.width;x++){
+			h[int(brightness(img.get(x,y)))]++;
+		}
+	}
+	//loop();
+	ChangeWindowSize(512,max(h)+10);
+	background(255);
+	for(int i = 0; i < h.length - 1;i++){
+		line(i*3,h[i],(i+1)*3,h[i+1]);
+	}
 }
