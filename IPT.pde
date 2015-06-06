@@ -44,10 +44,12 @@ void setup(){
       // 以下のように書くと、ファイルのフルパスを表示
       for(File f : fileNameList){
       	img=loadImage(f.getAbsolutePath());
+      	redraw();
       }
     }
   });
   // ==================================================
+  noLoop();
 }
 
 void draw() {
