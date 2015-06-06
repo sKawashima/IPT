@@ -107,6 +107,6 @@ void histogram(){
 	ChangeWindowSize(512,max(h)+10);
 	background(255);
 	for(int i = 0; i < h.length - 1;i++){
-		line(i*3,h[i],(i+1)*3,h[i+1]);
+		line(i*3,max(h) - h[i],(i+1)*3,max(h) - h[i+1]);
 	}
 }
