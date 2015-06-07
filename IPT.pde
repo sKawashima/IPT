@@ -14,6 +14,8 @@ import java.util.*;
 DropTarget dropTarget;
 PImage img;
 int sw = 0;
+String fname="";//最後に開いた画像の名前
+String ip ="";//最後に行った画像処理
 
 void setup(){
 	// てきとうにサイズ設定
@@ -45,6 +47,7 @@ void setup(){
 		// 以下のように書くと、ファイルのフルパスを表示
 		for(File f : fileNameList){
 			img=loadImage(f.getAbsolutePath());
+			fname = f.getName();
 			redraw();
 		}
 	}
@@ -88,7 +91,7 @@ void keyPressed(){
 		sw = 1;
 		redraw();
 	}else if (key == 's'){
-		save("data.png");
+		save(fname + " - " + ip + ".png");
 	}else if (key == 'r'){
 		sw = 0;
 		redraw();
@@ -112,4 +115,5 @@ void histogram(){
 	for(int i = 0; i < h.length - 1;i++){
 		line(i*3,map(h[i],max(h),0,0,height+10),(i+1)*3,map(h[i+1],max(h),0,0,height+10));
 	}
+	ip = "histogram";
 }
