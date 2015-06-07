@@ -48,6 +48,7 @@ void setup(){
 		for(File f : fileNameList){
 			img=loadImage(f.getAbsolutePath());
 			fname = f.getName();
+			sw = 0;
 			redraw();
 		}
 	}
@@ -70,8 +71,11 @@ void draw() {
 		//println(img.width,img.height);
 	}else{
 		//font = loadFont("console");
-		textSize(18);
-		text("ここにD and D",50,50);
+		textSize(30);
+		background(255);
+		fill(0);
+		textAlign(CENTER,CENTER);
+		text("D and D jpeg image here",width/2,height/2);
 	}
 }
 
