@@ -53,6 +53,9 @@ void setup(){
 	noLoop();
 }
 
+//キーボード操作によりswが変化し、それによって描写を変える
+//
+
 void draw() {
 	if(img != null){
 		if (sw == 1) {
@@ -90,15 +93,12 @@ void keyPressed(){
 		sw = 0;
 		redraw();
 	}
-	if (key == CODED) {			// コード化されているキーが押された
-		if (keyCode == UP) {		// キーコードを判定
-			 background(255);
-		} else if (keyCode == DOWN) {
-			 background(0);
-		}
-	}
 }
 
+/**
+ * ヒストグラムを生成する
+ * @return ヒストグラムを表示
+ */
 void histogram(){
 	int[] h = new int[256];
 	for(int y = 0;y < img.height;y++){
@@ -107,9 +107,9 @@ void histogram(){
 		}
 	}
 	//loop();
-	ChangeWindowSize(512,max(h)+10);
+	ChangeWindowSize(512,288);
 	background(255);
 	for(int i = 0; i < h.length - 1;i++){
-		line(i*3,max(h) - h[i],(i+1)*3,max(h) - h[i+1]);
+		line(i*3,map(h[i],max(h),0,0,height+10),(i+1)*3,map(h[i+1],max(h),0,0,height+10));
 	}
 }
