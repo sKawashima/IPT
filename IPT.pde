@@ -103,6 +103,20 @@ void keyPressed(){
 }
 
 /**
+ * ふちなし四角形の作成
+ * @param  {value} int a 四角形の左上のx座標
+ * @param  {value} int b 四角形の左上のy座標
+ * @param  {value} int c 四角形の右下のx座標
+ * @param  {value} int d 四角形の右下のy座標
+ */
+void rectn(int a,int b,int c, int d){
+	line(a,b,a,d-1);
+	line(a,b,c-1,b);
+	line(c-1,b,c-1,d-1);
+	line(a,d-1,c-1,d-1);
+}
+
+/**
  * ヒストグラムを生成する
  * @return ヒストグラムを表示
  */
@@ -116,6 +130,7 @@ void histogram(){
 	//loop();
 	ChangeWindowSize(512,288);
 	background(255);
+	rectn(0,0,width,height);
 	for(int i = 0; i < h.length - 1;i++){
 		line(i*3,map(h[i],max(h),0,0,height+10),(i+1)*3,map(h[i+1],max(h),0,0,height+10));
 	}
