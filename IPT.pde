@@ -57,7 +57,7 @@ void draw() {
 	if(img != null){
 		if (sw == 1) {
 			histogram();
-		}else{
+		}else if (sw == 0) {
 			image(img,0,0);
 			ChangeWindowSize(img.width, img.height);
 		}
@@ -86,6 +86,9 @@ void keyPressed(){
 		redraw();
 	}else if (key == 's'){
 		save("data.png");
+	}else if (key == 'r'){
+		sw = 0;
+		redraw();
 	}
 	if (key == CODED) {			// コード化されているキーが押された
 		if (keyCode == UP) {		// キーコードを判定
