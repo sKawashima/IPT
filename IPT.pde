@@ -127,8 +127,8 @@ void histogram(){
 			h[int(brightness(img.get(x,y)))]++;
 		}
 	}
-	//loop();
-	ChangeWindowSize(512,288);
+	//描写ここから
+	ChangeWindowSize(768,288);
 	background(255);
 	rectn(0,0,width,height);
 	for(int i = 0; i < h.length - 1;i++){
