@@ -90,7 +90,7 @@ void ChangeWindowSize(int w,int h){
 }
 
 void keyPressed(){
-	println(key);
+	//println(key);
 	if (key == 'h'){
 		sw = 1;
 		redraw();
