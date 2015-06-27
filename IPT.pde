@@ -118,6 +118,13 @@ void rectn(int a,int b,int c, int d){
 	line(a,d-1,c-1,d-1);
 }
 
+/**
+ * 1画素表示の関数
+ * @param  {[type]} int n color
+ * @param  {[type]} int x X座標
+ * @param  {[type]} int y Y座標
+ * @return {[type]} void
+ */
 void writeone(int n,int x,int y){
 	fill(n);
 	rect(x,y,x+1,y+1);
