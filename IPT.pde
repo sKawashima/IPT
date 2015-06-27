@@ -14,8 +14,10 @@ import java.util.*;
 DropTarget dropTarget;
 PImage img;
 int sw = 0;
+int p = 50;//pタイル法におけるp値(p%として取る)
 String fname="";//最後に開いた画像の名前
 String ip ="";//最後に行った画像処理
+int[] h = new int[256];
 
 void setup(){
 	// てきとうにサイズ設定
@@ -121,7 +123,6 @@ void rectn(int a,int b,int c, int d){
  * @return ヒストグラムを表示
  */
 void histogram(){
-	int[] h = new int[256];
 	for(int y = 0;y < img.height;y++){
 		for(int x = 0;x < img.width;x++){
 			h[int(brightness(img.get(x,y)))]++;
