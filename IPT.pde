@@ -13,9 +13,11 @@ import java.util.*;
 
 DropTarget dropTarget;
 PImage img;
-int sw = 0;
+int sw = 0;//画面遷移のid
+int p = 50;//pタイル法におけるp値(p%として取る)
 String fname="";//最後に開いた画像の名前
 String ip ="";//最後に行った画像処理
+int[] h = new int[256];//どの色がどれだけ出てきたかを格納する配列
 
 void setup(){
 	// てきとうにサイズ設定
@@ -45,14 +47,14 @@ void setup(){
 			if(fileNameList == null) return;
 		// ドラッグ&ドロップされたファイルの一覧は一時リストに格納される
 		// 以下のように書くと、ファイルのフルパスを表示
-		for(File f : fileNameList){
-			img=loadImage(f.getAbsolutePath());
-			fname = f.getName();
-			sw = 0;
-			redraw();
+			for(File f : fileNameList){
+				img=loadImage(f.getAbsolutePath());
+				fname = f.getName();
+				sw = 0;
+				redraw();
+			}
 		}
-	}
-});
+	});
 	// ==================================================
 	noLoop();
 }
@@ -84,13 +86,13 @@ void draw() {
  * @param {value} int w 画像の横幅
  * @param {value} int h 画像の縦幅
  */
-void ChangeWindowSize(int w,int h){
-	frame.setSize(w + frame.getInsets().left + frame.getInsets().right,h + frame.getInsets().top + frame.getInsets().bottom);
-	size(w,h);
-}
+ void ChangeWindowSize(int w,int h){
+ 	frame.setSize(w + frame.getInsets().left + frame.getInsets().right,h + frame.getInsets().top + frame.getInsets().bottom);
+ 	size(w,h);
+ }
 
-void keyPressed(){
-	println(key);
+ void keyPressed(){
+	//println(key);
 	if (key == 'h'){
 		sw = 1;
 		redraw();
@@ -109,30 +111,49 @@ void keyPressed(){
  * @param  {value} int c 四角形の右下のx座標
  * @param  {value} int d 四角形の右下のy座標
  */
-void rectn(int a,int b,int c, int d){
-	line(a,b,a,d-1);
-	line(a,b,c-1,b);
-	line(c-1,b,c-1,d-1);
-	line(a,d-1,c-1,d-1);
-}
+ void rectn(int a,int b,int c, int d){
+ 	line(a,b,a,d-1);
+ 	line(a,b,c-1,b);
+ 	line(c-1,b,c-1,d-1);
+ 	line(a,d-1,c-1,d-1);
+ }
+
+/**
+ * 1画素表示の関数
+ * @param  {[type]} int n color
+ * @param  {[type]} int x X座標
+ * @param  {[type]} int y Y座標
+ * @return {[type]} none
+ */
+ void writeone(int n,int x,int y){
+ 	fill(n);
+ 	rect(x,y,x+1,y+1);
+ }
+
+/**
+ * h[]の計算
+ * @return none
+ */
+ void cal_h(){
+ 	for(int y = 0;y < img.height;y++){
+ 		for(int x = 0;x < img.width;x++){
+ 			h[int(brightness(img.get(x,y)))]++;
+ 		}
+ 	}
+ }
 
 /**
  * ヒストグラムを生成する
  * @return ヒストグラムを表示
  */
-void histogram(){
-	int[] h = new int[256];
-	for(int y = 0;y < img.height;y++){
-		for(int x = 0;x < img.width;x++){
-			h[int(brightness(img.get(x,y)))]++;
-		}
-	}
-	//描写ここから
-	ChangeWindowSize(768,288);
-	background(255);
-	rectn(0,0,width,height);
-	for(int i = 0; i < h.length - 1;i++){
-		line(i*3,map(h[i],max(h),0,0,height+10),(i+1)*3,map(h[i+1],max(h),0,0,height+10));
-	}
-	ip = "histogram";
-}
+ void histogram(){
+ 	cal_h();
+ 	ChangeWindowSize(768,288);
+ 	background(255);
+ 	fill(0);
+ 	rectn(0,0,width,height);
+ 	for(int i = 0; i < h.length - 1;i++){
+ 		line(i*3,map(h[i],max(h),0,0,height+10),(i+1)*3,map(h[i+1],max(h),0,0,height+10));
+ 	}
+ 	ip = "histogram";
+ }
