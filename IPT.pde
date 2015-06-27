@@ -118,6 +118,11 @@ void rectn(int a,int b,int c, int d){
 	line(a,d-1,c-1,d-1);
 }
 
+void writeone(int n,int x,int y){
+	fill(n);
+	rect(x,y,x+1,y+1);
+}
+
 /**
  * ヒストグラムを生成する
  * @return ヒストグラムを表示
@@ -131,6 +136,7 @@ void histogram(){
 	//描写ここから
 	ChangeWindowSize(768,288);
 	background(255);
+	fill(0);
 	rectn(0,0,width,height);
 	for(int i = 0; i < h.length - 1;i++){
 		line(i*3,map(h[i],max(h),0,0,height+10),(i+1)*3,map(h[i+1],max(h),0,0,height+10));
