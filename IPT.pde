@@ -69,6 +69,8 @@ void draw() {
 		}else if (sw == 0) {
 			image(img,0,0);
 			ChangeWindowSize(img.width, img.height);
+		}else if (sw == 2) {
+			p_check();
 		}
 		//println(img.width,img.height);
 	}else{
@@ -100,6 +102,9 @@ void keyPressed(){
 		save(fname + " - " + ip + ".png");
 	}else if (key == 'r'){
 		sw = 0;
+		redraw();
+	}else if (key == 'p') {
+		sw = 2;
 		redraw();
 	}
 }
@@ -156,4 +161,24 @@ void histogram(){
 		line(i*3,map(h[i],max(h),0,0,height+10),(i+1)*3,map(h[i+1],max(h),0,0,height+10));
 	}
 	ip = "histogram";
+}
+
+/**
+ * p値からどの明るさまでを扱うか確定する
+ * @return none
+ */
+void p_check(){
+	cal_h();
+	int all = img.width*img.height;//全体画素値
+	int p_ch = all * p / 100;//いくつの画素値を活用するか確定
+	int sum = 0;
+	int r = 0;
+	for(int i = 0;i < 256;i++){
+		sum += h[i];
+		if(sum >= p_ch){
+			r = i;//どの明るさまで使うかを格納する
+			break;
+		}
+	}
+	print(r);
 }
