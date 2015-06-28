@@ -17,7 +17,7 @@ PImage img;
 int sw = 0;//画面遷移のid
 int p = 50;//pタイル法におけるp値(p%として取る)
 String fname="";//最後に開いた画像の名前
-String ip ="";//最後に行った画像処理
+String ip="";
 int[] h = new int[256];//どの色がどれだけ出てきたかを格納する配列
 
 void setup(){
@@ -53,6 +53,7 @@ void setup(){
 				fname = f.getName();
 				sw = 0;
 				frame.setTitle("loaded");
+				p = 50;
 				cal_h();
 				redraw();
 			}
@@ -111,6 +112,16 @@ void keyPressed(){
 	}else if (key == 'p') {
 		sw = 2;
 		redraw();
+	}else if(keyCode == UP){
+		if(sw == 2){
+			p++;
+			redraw();
+		}
+	}else if(keyCode == DOWN){
+		if(sw == 2){
+			p--;
+			redraw();
+		}
 	}
 }
 
@@ -133,6 +144,10 @@ void rectn(int a,int b,int c, int d){
  * @return none
  */
 void cal_h(){
+	for(int i = 0;i < 256;i++){
+		h[i] = 0;
+	}
+
 	for(int y = 0;y < img.height;y++){
 		for(int x = 0;x < img.width;x++){
 			h[int(brightness(img.get(x,y)))]++;
@@ -173,6 +188,7 @@ void p_check(){
 	}
 	p_draw(r);
 	frame.setTitle("p: p-tile p: " + p + " r: " + r);
+	ip = "p-tile p= " + p;
 	//print(r);
 }
 
