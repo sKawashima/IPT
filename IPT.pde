@@ -10,6 +10,7 @@ import java.awt.dnd.DropTargetListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.awt.Frame;
 
 DropTarget dropTarget;
 PImage img;
@@ -51,6 +52,8 @@ void setup(){
 				img=loadImage(f.getAbsolutePath());
 				fname = f.getName();
 				sw = 0;
+				frame.setTitle("loaded");
+				cal_h();
 				redraw();
 			}
 		}
@@ -65,6 +68,7 @@ void setup(){
 void draw() {
 	if(img != null){
 		if (sw == 1) {
+			frame.setTitle("h: histogram");
 			histogram();
 		}else if (sw == 0) {
 			image(img,0,0);
@@ -100,6 +104,7 @@ void keyPressed(){
 		redraw();
 	}else if (key == 's'){
 		save(fname + " - " + ip + ".png");
+		frame.setTitle("saved");
 	}else if (key == 'r'){
 		sw = 0;
 		redraw();
@@ -140,7 +145,6 @@ void cal_h(){
  * @return ヒストグラムを表示
  */
 void histogram(){
-	cal_h();
 	ChangeWindowSize(768,288);
 	background(255);
 	fill(0);
@@ -156,7 +160,6 @@ void histogram(){
  * @return none
  */
 void p_check(){
-	cal_h();
 	int all = img.width*img.height;//全体画素値
 	int p_ch = all * p / 100;//いくつの画素値を活用するか確定
 	int sum = 0;
@@ -169,6 +172,7 @@ void p_check(){
 		}
 	}
 	p_draw(r);
+	frame.setTitle("p: p-tile p: " + p + " r: " + r);
 	//print(r);
 }
 
