@@ -124,18 +124,6 @@ void rectn(int a,int b,int c, int d){
 }
 
 /**
- * 1画素表示の関数
- * @param  {[type]} int n color
- * @param  {[type]} int x X座標
- * @param  {[type]} int y Y座標
- * @return {[type]} none
- */
-void writeone(int n,int x,int y){
-	fill(n);
-	rect(x,y,x+1,y+1);
-}
-
-/**
  * h[]の計算
  * @return none
  */
@@ -180,5 +168,19 @@ void p_check(){
 			break;
 		}
 	}
-	print(r);
+	p_draw(r);
+	//print(r);
+}
+
+void p_draw(int r){
+	ChangeWindowSize(img.width, img.height);
+	background(255);
+	//print("r:"+r);
+	//println(int(brightness(img.get(10,10))));
+	for(int x = 0;x < img.width;x++){
+		for(int y = 0;y < img.height;y++){
+			if(int(brightness(img.get(x,y))) > r) ;
+			else point(x,y);
+		}
+	}
 }
