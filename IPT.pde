@@ -114,12 +114,12 @@ void keyPressed(){
 		redraw();
 	}else if(keyCode == UP){
 		if(sw == 2){
-			p++;
+			p--;
 			redraw();
 		}
 	}else if(keyCode == DOWN){
 		if(sw == 2){
-			p--;
+			p++;
 			redraw();
 		}
 	}
@@ -187,8 +187,8 @@ void p_check(){
 		}
 	}
 	p_draw(r);
-	frame.setTitle("p: p-tile p: " + p + " r: " + r);
-	ip = "p-tile p= " + p;
+	frame.setTitle("p: p-tile p: " + (100 - p) + " r: " + r);
+	ip = "p-tile p= " + (100 - p);
 	//print(r);
 }
 
